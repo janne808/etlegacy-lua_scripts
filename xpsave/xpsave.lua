@@ -50,6 +50,12 @@ end -- rows
 -- con:prepare with bind_names should be used to prevent sql injections
 -- but it doesn't work on my version of luasql
 function validateGUID(cno, guid)
+        -- disallow omnibots
+        if(string.match(guid, "OMNIBOT")) then
+                et.G_Print("^3WARNING: (XP Save) skipping Omnibot with ID " .. cno .. " and GUID: " .. guid .. "\n")
+                return false
+        end
+
 	-- allow only alphanumeric characters in guid
 	if(string.match(guid, "%W")) then
 		-- Invalid characters detected. We should probably drop this client
